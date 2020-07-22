@@ -73,7 +73,7 @@ async function init() {
     .attr("transform",
           "translate("+(width/2)+","+(height+margin+50)+")")
     .style("text-anchor", "center")
-    .text("Assists Per 90 Minutes");
+    .text("Goals Per 90 Minutes");
 
 // add y-axis title
   d3.select("svg").append("text")
@@ -82,7 +82,7 @@ async function init() {
     .attr("x",0 - (height / 2))
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .text("Goals Per 90 Minutes");
+    .text("Assists Per 90 Minutes");
 
 // add title
   d3.select("svg").append("text")
