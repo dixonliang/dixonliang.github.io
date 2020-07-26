@@ -32,10 +32,10 @@ async function init() {
   "darkred","gold","darkblue","teal","maroon","yellow","royalblue",
   "black","darkred","brown","tomato","powderblue","aqua","slategray","cornflowerblue"]);
 
-  var xs = d3.scaleLinear().domain([0,0.9]).range([0,width]);
-  var ys = d3.scaleLinear().domain([0,0.6]).range([height,0]);
-  var x = d3.scaleLinear().domain([0,0.9]).range([0,width]);
-  var y = d3.scaleLinear().domain([0,0.6]).range([height,0]);
+  var xs = d3.scaleLinear().domain([0,1.5]).range([0,width]);
+  var ys = d3.scaleLinear().domain([0,30]).range([height,0]);
+  var x = d3.scaleLinear().domain([0,1.5]).range([0,width]);
+  var y = d3.scaleLinear().domain([0,30]).range([height,0]);
   var tooltip = d3.select("#tooltip");
 
   d3.select("svg")
@@ -48,7 +48,7 @@ async function init() {
   // .filter(function(d) {return d["Current Club"] == })
 
   .attr("cx",function(d) {return xs(d.goals_involved_per_90_overall); })
-  .attr("cy",function(d) {return ys(d3.sum(d.assists_overall, d.goals_overall)); })
+  .attr("cy",function(d) {return ys(d.goals_involved_overall); })
   .attr("r",function(d) {return 4; })
   .attr("fill", d=>color(d["Current Club"]) )
   .on("mouseover", function(d) {
