@@ -11,29 +11,32 @@
     border: 0px;
 }
 </style>
+
 <body onload='init()'>
 <svg width=1000 height=1000>
-  // Eden Hazard annotation
-<text x="610" y="275" font-size="smaller"> Eden Hazard was the player of the year (voted by fans).
-  <tspan dy="15" x="610">  He was prolific for Chelsea who finished 3rd on the season.
+  // Callum Wilson annotation
+<text x="610" y="455" font-size="smaller">Being the occupant of the top right, Callum Wilson was a clear
+  <tspan dy="15" x="610">    outperformer. He averaged almost a goal every two games,
   </tspan>
-  <tspan dy="15" x="610">  He was part of 31 goals, which was nearly half of all of the
+  <tspan dy="15" x="610">  scoring a quarter of 14th place Bournemouth's goals. Providing nine
   </tspan>
-  <tspan dy="15" x="610">  team's total and the most of any player in the league.
+  <tspan dy="15" x="610"> 9 assists as well, he was involved in 37.5% of the teams goals.
   </tspan></text>
 
-  // Leroy Sane annotation
-<text x="610" y="195" font-size="smaller"> It can be argued that Leroy Sane should have been
-  <tspan dy="15" x="610">  given more playing time. He managed a 20 goals
-  </tspan>
-  <tspan dy="15" x="610">   contribution overall, but only appeared in 31 total games.
-  </tspan>
-  <tspan dy="15" x="610"> On this basis, he is almost identical to Eden Hazard.
-  </tspan></text>
+// Ryan Fraser text
+  <text x="360" y="300" font-size="smaller">Ryan Fraser had the most assists of any player in the bottom
+    <tspan dy="15" x="360">half of the table. He also contributed 7 goals for Bournemouth
+    </tspan>
+    <tspan dy="15" x="360"> good for 35.7% of the team's total.
+    </tspan></text>
+
 
 </svg>
+
 <div id="tooltip"></div>
+
 <script>
+
 async function init() {
 
   const data = await d3.csv('https://dixonliang.github.io/EPLData.csv');
@@ -62,6 +65,9 @@ async function init() {
   .attr("transform","translate("+margin+","+margin+")")
   .selectAll("body").data(data).enter().append("circle")
   .filter(function(d) {return d.minutes_played_overall > 500 })
+  .filter(function(d) {return d["Current Club"] == "Watford" || d["Current Club"] == "Crystal Palace"
+   || d["Current Club"] == "Newcastle United" || d["Current Club"] == "AFC Bournemouth" || d["Current Club"] == "Burnley" || d["Current Club"] == "Southampton"
+   || d["Current Club"] == "Brighton & Hove Albion" || d["Current Club"] == "Huddersfield Town" || d["Current Club"] == "Cardiff City" || d["Current Club"] == "Fulham"})
   .attr("cx",function(d) {return xs(d.goals_per_90_overall); })
   .attr("cy",function(d) {return ys(d.assists_per_90_overall); })
   .attr("r",function(d) {return 4; })
@@ -109,9 +115,9 @@ async function init() {
   .attr("text-anchor", "center")
   .attr("font-weight", 600)
   .style("font-size", "24px")
-  .text("2018/2019 Premier League Attacking Player Efficiency");
+  .text("Bottom Half of the 2018/2019 Premier League Table");
 
-// add annotation
+// add subtitle
   d3.select("svg").append("text")
   .attr("x", (width / 2))
   .attr("y", (margin + 30))
@@ -119,23 +125,23 @@ async function init() {
   .style("font-size", "16px")
   .text("*minimum of 500 minutes played*");
 
-  // add line for annotation for Eden Hazard
-    d3.select("svg").append('line')
-         .style("stroke", "black")
-         .style("stroke-width", 1)
-         .attr("x1", 520)
-         .attr("y1", 275)
-         .attr("x2", 600)
-         .attr("y2", 275);
+// add line for annotation for Callum Wilson
+  d3.select("svg").append('line')
+       .style("stroke", "black")
+       .style("stroke-width", 1)
+       .attr("x1", 530)
+       .attr("y1", 450)
+       .attr("x2", 600)
+       .attr("y2", 450);
 
-  // add line for annotation for Leroy Sane
-    d3.select("svg").append('line')
-          .style("stroke", "black")
-          .style("stroke-width", 1)
-          .attr("x1", 510)
-          .attr("y1", 245)
-          .attr("x2", 600)
-          .attr("y2", 195);
+// add line for annotaiton for Ryan Fraser
+  d3.select("svg").append('line')
+       .style("stroke", "black")
+       .style("stroke-width", 1)
+       .attr("x1", 274)
+       .attr("y1", 380)
+       .attr("x2", 350)
+       .attr("y2", 300);
 
 }
 

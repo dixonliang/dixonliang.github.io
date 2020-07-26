@@ -13,24 +13,6 @@
 </style>
 <body onload='init()'>
 <svg width=1000 height=1000>
-  // Eden Hazard annotation
-<text x="610" y="275" font-size="smaller"> Eden Hazard was the player of the year (voted by fans).
-  <tspan dy="15" x="610">  He was prolific for Chelsea who finished 3rd on the season.
-  </tspan>
-  <tspan dy="15" x="610">  He was part of 31 goals, which was nearly half of all of the
-  </tspan>
-  <tspan dy="15" x="610">  team's total and the most of any player in the league.
-  </tspan></text>
-
-  // Leroy Sane annotation
-<text x="610" y="195" font-size="smaller"> It can be argued that Leroy Sane should have been
-  <tspan dy="15" x="610">  given more playing time. He managed a 20 goals
-  </tspan>
-  <tspan dy="15" x="610">   contribution overall, but only appeared in 31 total games.
-  </tspan>
-  <tspan dy="15" x="610"> On this basis, he is almost identical to Eden Hazard.
-  </tspan></text>
-
 </svg>
 <div id="tooltip"></div>
 <script>
@@ -41,6 +23,7 @@ async function init() {
   var width = 750;
   var height = 750;
   var margin = 100;
+
 
   var color = d3.scaleOrdinal().domain(["Manchester City","Liverpool","Chelsea","Tottenham Hotspur","Arsenal",
   "Manchester United","Wolverhampton Wanderers","Everton","Leicester City","West Ham United","Watford","Crystal Palace",
@@ -62,8 +45,10 @@ async function init() {
   .attr("transform","translate("+margin+","+margin+")")
   .selectAll("body").data(data).enter().append("circle")
   .filter(function(d) {return d.minutes_played_overall > 500 })
-  .attr("cx",function(d) {return xs(d.goals_per_90_overall); })
-  .attr("cy",function(d) {return ys(d.assists_per_90_overall); })
+  // .filter(function(d) {return d["Current Club"] == })
+
+  .attr("cx",function(d) {return xs(d.goals_involved_per_90_overall); })
+  .attr("cy",function(d) {return ys(d3.sum(d.assists_overall, d.goals_overall)); })
   .attr("r",function(d) {return 4; })
   .attr("fill", d=>color(d["Current Club"]) )
   .on("mouseover", function(d) {
@@ -109,7 +94,7 @@ async function init() {
   .attr("text-anchor", "center")
   .attr("font-weight", 600)
   .style("font-size", "24px")
-  .text("2018/2019 Premier League Attacking Player Efficiency");
+  .text("Top Half of the 2018/2019 Premier League Table");
 
 // add annotation
   d3.select("svg").append("text")
@@ -118,24 +103,6 @@ async function init() {
   .attr("text-anchor", "center")
   .style("font-size", "16px")
   .text("*minimum of 500 minutes played*");
-
-  // add line for annotation for Eden Hazard
-    d3.select("svg").append('line')
-         .style("stroke", "black")
-         .style("stroke-width", 1)
-         .attr("x1", 520)
-         .attr("y1", 275)
-         .attr("x2", 600)
-         .attr("y2", 275);
-
-  // add line for annotation for Leroy Sane
-    d3.select("svg").append('line')
-          .style("stroke", "black")
-          .style("stroke-width", 1)
-          .attr("x1", 510)
-          .attr("y1", 245)
-          .attr("x2", 600)
-          .attr("y2", 195);
 
 }
 
