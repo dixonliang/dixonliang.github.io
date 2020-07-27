@@ -13,6 +13,73 @@
 </style>
 <body onload='init()'>
 <svg width=1000 height=1000>
+
+  // most important players
+<text x="160" y="320" font-size="smaller"> In this group we see the players that were most important to their teams
+  <tspan dy="15" x="160"> in terms of their attacking contribution. Murray, Rondon, and Vardy who were
+  </tspan>
+  <tspan dy="15" x="160"> identified in the previuos plot appear here. Jimenez of Wolves (finished 7th) also appears.
+  </tspan>
+  <tspan dy="15" x="160"> Despite not playing for big teams, these players should have gotten more
+  </tspan>
+  <tspan dy="15" x="160"> regonizition for their tallies on the season.
+  </tspan></text>
+
+  // Eden Hazard annotation
+<text x="580" y="260" font-size="smaller"> The immense season Hazard had is further exemplified
+  <tspan dy="15" x="580"> when looking at context of his contributions to team performance.
+  </tspan>
+  <tspan dy="15" x="580">He was a clear outlier in attacking performance of the season.
+  </tspan>
+  </tspan></text>
+
+
+// Aubameyang and Liverpool
+<text x="680" y="450" font-size="smaller"> Aubameyang remains one of the top players in
+  <tspan dy="15" x="680"> this view. Of Liverpool's two top scorers, Salah's
+  </tspan>
+  <tspan dy="15" x="680"> outperformance, primarily due to his assists.
+  </tspan>
+  </tspan></text>
+
+// Mitrovic annotation
+<text x="130" y="465" font-size="smaller"> Despite not being one of the more
+  <tspan dy="15" x="130">effective players, the importance
+  </tspan>
+  <tspan dy="15" x="130">of Mitrovic for Fulham is very evident here.
+  </tspan></text>
+
+  // Callum Wilson annotation
+<text x="650" y="370" font-size="smaller"> Wilson appears again, in the most top right outside of
+  <tspan dy="15" x="650">  Hazard. He should have been recongized as one of the
+  </tspan>
+  <tspan dy="15" x="650"> best of the season especially taking into consideration
+  </tspan>
+  <tspan dy="15" x="650"> the performance of his team.
+  </tspan></text>
+
+  // Man City annotation
+<text x="720" y="570" font-size="smaller"> With the overall performance of Man City,
+  <tspan dy="15" x="720"> Aguero still stands out. Of the rest,
+  </tspan>
+  <tspan dy="15" x="720"> their performances are "less impressive"
+  </tspan>
+  <tspan dy="15" x="720"> in this context. Sterling was still good,
+  </tspan>
+  <tspan dy="15" x="720"> but it can be argued there were better
+  </tspan>
+  <tspan dy="15" x="720"> candidates for the players vote.
+  </tspan>
+  <tspan dy="15" x="720"> Unfortunately for Jesus and Mahrez, it's
+  </tspan>
+  <tspan dy="15" x="720"> hard to argue that they should be getting
+  </tspan>
+  <tspan dy="15" x="720">  more time given the contributions of the
+  </tspan>
+  <tspan dy="15" x="720"> players ahead of them.
+  </tspan>
+  </tspan></text>
+
 </svg>
 <div id="tooltip"></div>
 <script>
@@ -32,10 +99,10 @@ async function init() {
   "darkred","gold","darkblue","teal","maroon","yellow","royalblue",
   "black","darkred","brown","tomato","powderblue","aqua","slategray","cornflowerblue"]);
 
-  var xs = d3.scaleLinear().domain([0,1.5]).range([0,width]);
-  var ys = d3.scaleLinear().domain([0,30]).range([height,0]);
-  var x = d3.scaleLinear().domain([0,1.5]).range([0,width]);
-  var y = d3.scaleLinear().domain([0,30]).range([height,0]);
+  var xs = d3.scaleLinear().domain([0,1.2]).range([0,width]);
+  var ys = d3.scaleLinear().domain([0,0.75]).range([height,0]);
+  var x = d3.scaleLinear().domain([0,1.2]).range([0,width]);
+  var y = d3.scaleLinear().domain([0,0.75]).range([height,0]);
   var tooltip = d3.select("#tooltip");
 
   d3.select("svg")
@@ -48,7 +115,7 @@ async function init() {
   // .filter(function(d) {return d["Current Club"] == })
 
   .attr("cx",function(d) {return xs(d.goals_involved_per_90_overall); })
-  .attr("cy",function(d) {return ys(d.goals_involved_overall); })
+  .attr("cy",function(d) {return ys(d.percentage_goals); })
   .attr("r",function(d) {return 4; })
   .attr("fill", d=>color(d["Current Club"]) )
   .on("mouseover", function(d) {
@@ -76,7 +143,7 @@ async function init() {
     .attr("transform",
           "translate("+(width/2)+","+(height+margin+50)+")")
     .style("text-anchor", "center")
-    .text("Goals Per 90 Minutes");
+    .text("Goals Involved Per 90 Minutes");
 
 // add y-axis title
   d3.select("svg").append("text")
@@ -85,7 +152,7 @@ async function init() {
     .attr("x",0 - (height / 2))
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .text("Assists Per 90 Minutes");
+    .text("Percentage of Goal Involvement");
 
 // add title
   d3.select("svg").append("text")
@@ -94,7 +161,7 @@ async function init() {
   .attr("text-anchor", "center")
   .attr("font-weight", 600)
   .style("font-size", "24px")
-  .text("Top Half of the 2018/2019 Premier League Table");
+  .text("Alt. 2018/2019 Premier League Attacking Efficiency");
 
 // add annotation
   d3.select("svg").append("text")
@@ -104,6 +171,33 @@ async function init() {
   .style("font-size", "16px")
   .text("*minimum of 500 minutes played*");
 
+// add line for annotation for Eden Hazard
+  d3.select("svg").append('line')
+       .style("stroke", "black")
+       .style("stroke-width", 1)
+       .attr("x1", 694)
+       .attr("y1", 330)
+       .attr("x2", 694)
+       .attr("y2", 305);
+
+// add line for annotation for Eden Hazard
+  d3.select("svg").append('line')
+        .style("stroke", "black")
+        .style("stroke-width", 1)
+        .attr("x1", 619)
+        .attr("y1", 420)
+        .attr("x2", 640)
+        .attr("y2", 400)
+
+
+// add line for annotation for Mitrovic
+  d3.select("svg").append('line')
+        .style("stroke", "black")
+        .style("stroke-width", 1)
+        .attr("x1", 331)
+        .attr("y1", 437)
+        .attr("x2", 318)
+        .attr("y2", 455)
 }
 
 </script>

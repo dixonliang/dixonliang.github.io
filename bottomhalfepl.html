@@ -23,13 +23,48 @@
   <tspan dy="15" x="610"> 9 assists as well, he was involved in 37.5% of the teams goals.
   </tspan></text>
 
-// Ryan Fraser text
+// Ryan Fraser annotation
   <text x="360" y="300" font-size="smaller">Ryan Fraser had the most assists of any player in the bottom
     <tspan dy="15" x="360">half of the table. He also contributed 7 goals for Bournemouth
     </tspan>
     <tspan dy="15" x="360"> good for 35.7% of the team's total.
     </tspan></text>
 
+// Rondon annotation
+  <text x="280" y="480" font-size="smaller">Another impressive player that sticks out in this filter is
+    <tspan dy="15" x="280"> Rondon of Newcastle, who contributed 18 goals overall.
+    </tspan>
+    <tspan dy="15" x="280">
+    </tspan>
+    <tspan dy="15" x="280">
+    </tspan>
+  </text>
+
+// goal efficiency annotation
+  <text x="520" y="725" font-size="smaller">Of the players in the top goal efficiency region, Barnes, Vardy, and Murray
+    <tspan dy="15" x="520"> appear to be the best scorers of the rest". Given that Brighton finished 17th,
+    <tspan dy="15" x="520"> Murray's tally appears to be even more impressive. It can be aruged
+    </tspan>
+    <tspan dy="15" x="520"> that Batshuayi and Hernandez should have been given more opportunites.
+    </tspan>
+  </text>
+
+
+// Watford annotation
+  <text x="500" y="570" font-size="smaller">Watford appears to be similar to Man City in that
+    <tspan dy="15" x="500"> they have several players in similar efficiency regions.
+    </tspan>
+    <tspan dy="15" x="500">  Together, Deulofeu, Deeney, and Gray accounted for half of the team's goals.
+    </tspan>
+    <tspan dy="15" x="500">
+    </tspan>
+  </text>
+
+// Tielemans annotation
+  <text x="350" y="390" font-size="smaller">Tielemans only joined Leicester half way through the season.
+    <tspan dy="15" x="350"> From this data, his attacking contributions to the team are very evident.
+    </tspan>
+  </text>
 
 </svg>
 
@@ -65,7 +100,8 @@ async function init() {
   .attr("transform","translate("+margin+","+margin+")")
   .selectAll("body").data(data).enter().append("circle")
   .filter(function(d) {return d.minutes_played_overall > 500 })
-  .filter(function(d) {return d["Current Club"] == "Watford" || d["Current Club"] == "Crystal Palace"
+  .filter(function(d) {return   d["Current Club"] == "Everton" || d["Current Club"] == "Leicester City" || d["Current Club"] == "West Ham United"
+   || d["Current Club"] == "Watford" || d["Current Club"] == "Crystal Palace"
    || d["Current Club"] == "Newcastle United" || d["Current Club"] == "AFC Bournemouth" || d["Current Club"] == "Burnley" || d["Current Club"] == "Southampton"
    || d["Current Club"] == "Brighton & Hove Albion" || d["Current Club"] == "Huddersfield Town" || d["Current Club"] == "Cardiff City" || d["Current Club"] == "Fulham"})
   .attr("cx",function(d) {return xs(d.goals_per_90_overall); })
@@ -115,7 +151,7 @@ async function init() {
   .attr("text-anchor", "center")
   .attr("font-weight", 600)
   .style("font-size", "24px")
-  .text("Bottom Half of the 2018/2019 Premier League Table");
+  .text("Ex-Top 7 of the 2018/2019 Premier League Table");
 
 // add subtitle
   d3.select("svg").append("text")
@@ -143,8 +179,41 @@ async function init() {
        .attr("x2", 350)
        .attr("y2", 300);
 
+
+// add line for annotaiton for Rondon
+ d3.select("svg").append('line')
+      .style("stroke", "black")
+      .style("stroke-width", 1)
+      .attr("x1", 417)
+      .attr("y1", 540)
+      .attr("x2", 417)
+      .attr("y2", 505);
+
+
+// Tielemans line annotation
+d3.select("svg").append('line')
+     .style("stroke", "black")
+     .style("stroke-width", 1)
+     .attr("x1", 316)
+     .attr("y1", 432)
+     .attr("x2", 342)
+     .attr("y2", 410);
+
 }
 
 </script>
+
+<style type="text/css">
+  p { margin-left:90px}
+</style>
+
+<p> <b> Summary: </b> Now removing players who played for the top 7 teams, outliers for these teams become even more clear. <br>
+The argument can be made that players on the fringes of this filtered view would have better performance for better teams.
+<br>
+<br>
+<b> Notes: </b> Hovering over a dot representing a player view reveal his nae, number of goals scored, and number of assists recorded. <br>
+Dots of the same color represent players of the same team.
+</p>
+
 </body>
 </html>

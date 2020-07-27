@@ -12,9 +12,9 @@
 }
 </style>
 <body onload='init()'>
-<svg width=1000 height=1000>
+<svg width=1000 height=1500>
   // Eden Hazard annotation
-<text x="610" y="275" font-size="smaller"> Eden Hazard was the player of the year (voted by fans).
+<text x="610" y="275" font-size="smaller"> Hazard was the player of the year (voted by fans).
   <tspan dy="15" x="610">  He was prolific for Chelsea who finished 3rd on the season.
   </tspan>
   <tspan dy="15" x="610">  He was part of 31 goals, which was nearly half of all of the
@@ -23,13 +23,57 @@
   </tspan></text>
 
   // Leroy Sane annotation
-<text x="610" y="195" font-size="smaller"> It can be argued that Leroy Sane should have been
+<text x="610" y="195" font-size="smaller"> It can be argued that Sane should have been
   <tspan dy="15" x="610">  given more playing time. He managed a 20 goals
   </tspan>
   <tspan dy="15" x="610">   contribution overall, but only appeared in 31 total games.
   </tspan>
-  <tspan dy="15" x="610"> On this basis, he is almost identical to Eden Hazard.
+  <tspan dy="15" x="610"> On this basis, he is almost identical to Hazard.
   </tspan></text>
+
+  // Mohamed Salah annotation
+<text x="660" y="560" font-size="smaller">
+  <tspan dy="15" x="660"> 17/18's player of the year, Salah still had
+  </tspan>
+  <tspan dy="15" x="660"> a very good season in efficiency to go along
+  </tspan>
+  <tspan dy="15" x="660"> with outright totals, being one of the three top scorers.
+  </tspan></text>
+
+  // Aubameyang and Mane annotation
+<text x="640" y="700" font-size="smaller">
+  <tspan dy="15" x="640"> Between the two other joint top scorers, Aubameyang
+  </tspan>
+  <tspan dy="15" x="640"> was considerably more efficient than Mane
+  </tspan>
+  <tspan dy="15" x="640"> in terms of scoring and assists. Although only scoring
+  </tspan>
+  <tspan dy="15" x="640"> 17 goals Kane (partly due to injuries), was also
+  </tspan>
+  <tspan dy="15" x="640"> quite similar to Aubameyang.
+  </tspan></text>
+
+  // Man City
+<text x="590" y="400" font-size="smaller">
+  <tspan dy="15" x="590"> Being the champions, it is not a surprise Man City has three
+  </tspan>
+  <tspan dy="15" x="590"> players in this area. Aguero was the team's top scorer overall.
+  </tspan>
+  <tspan dy="15" x="590"> Sterling was voted by the players as player of the year. Jesus had
+  </tspan>
+  <tspan dy="15" x="590"> a good season considering he often split time with Aguero.
+  </tspan></text>
+
+<text x="120" y="210" font-size="smaller">
+  <tspan dy="15" x="120"> Of the effective assist players in this region, only Alexander-Arnold
+  </tspan>
+  <tspan dy="15" x="120"> was a main player for his team through the season.
+  </tspan>
+  <tspan dy="15" x="120"> Llorente and Giroud were back up type players, while
+  </tspan>
+  <tspan dy="15" x="120"> Mendy was hurt for most of the season, appearing only 10 games.
+  </tspan></text>
+
 
 </svg>
 <div id="tooltip"></div>
@@ -109,13 +153,13 @@ async function init() {
   .attr("text-anchor", "center")
   .attr("font-weight", 600)
   .style("font-size", "24px")
-  .text("2018/2019 Premier League Attacking Player Efficiency");
+  .text("2018/2019 Premier League Attacking Efficiency");
 
 // add annotation
   d3.select("svg").append("text")
   .attr("x", (width / 2))
   .attr("y", (margin + 30))
-  .attr("text-anchor", "center")
+  .attr("text-anchor", "left")
   .style("font-size", "16px")
   .text("*minimum of 500 minutes played*");
 
@@ -137,8 +181,37 @@ async function init() {
           .attr("x2", 600)
           .attr("y2", 195);
 
+// add line for annotation for Mo Salah
+    d3.select("svg").append('line')
+          .style("stroke", "black")
+          .style("stroke-width", 1)
+          .attr("x1", 620)
+          .attr("y1", 575)
+          .attr("x2", 650)
+          .attr("y2", 575);
+
 }
 
 </script>
+
+<style type="text/css">
+  p { margin-left:90px}
+</style>
+
+<p> <b> Summary: </b> We have players from the 2018/2019 Premier League season plotted by their goals and assists per 90 minutes. <br>
+Ideally, the most efficient players in each respective element are higher for assists and to the right for goals. Only players who <br>
+have played a minimum of 500 minutes are included. Through this process, we hope to discover which players were the most efficient <br>
+on the season, justifying their playing time or deserving of more playing time from an attacking perspective.
+<br>
+<br>
+One of the immediate things that is noticable is that the players at the fringes who are outperformers mostly play for the top 7 teams, <br>
+which are the teams that placed for European qualification. Something we might be interested in looking at our the non-top 7 teams which <br>
+might show us players that are under-valued simply because of the performane of their team. The next slide will show only the 13 bottom teams.
+<br>
+<br>
+<b> Notes: </b> Hovering over a dot representing a player view reveal his nae, number of goals scored, and number of assists recorded. <br>
+Dots of the same color represent players of the same team.
+</p>
+
 </body>
 </html>
