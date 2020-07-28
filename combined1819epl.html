@@ -6,7 +6,7 @@
     opacity: 0;
     position: absolute;
     text-align: center;
-    width: 150px; height: 100px;
+    width: 170px; height: 150px;
     background: white;
     border: 0px;
 }
@@ -124,8 +124,9 @@ async function init() {
                  .style("top",(d3.event.pageY)+"px")
                  .html("Team: "+d["Current Club"]+ "<br>" +
                  "Player: "+d.full_name+ "<br>" +
-                 "Goals:  "+d.goals_overall+ "<br>" +
-                 "Assists: "+d.assists_overall
+                 "Percentage of Team Goals:  "+d.percentage_goals+ "<br>" +
+                 "Goals and Assists: "+d3.sum([d.assists_overall,d.goals_overall])+ "<br>" +
+                 "Goals Involved Per 90: "+d.goals_per_90_overall
                );
       })
   .on("mouseout", function() { tooltip.style("opacity", 0); });
