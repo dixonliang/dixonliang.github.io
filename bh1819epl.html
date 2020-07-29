@@ -117,7 +117,8 @@ async function init() {
                  "Goals:  "+d.goals_overall+ "<br>" +
                  "Assists: "+d.assists_overall+ "<br>" +
                  "Goals Per 90: "+d.goals_per_90_overall+"<br>" +
-                 "Assists Per 90: "+d.assists_per_90_overall
+                 "Assists Per 90: "+d.assists_per_90_overall+"<br>" +
+                 "Minutes: "+d.minutes_played_overall
                );
       })
   .on("mouseout", function() { tooltip.style("opacity", 0); });
@@ -162,6 +163,14 @@ async function init() {
   .attr("text-anchor", "center")
   .style("font-size", "16px")
   .text("*minimum of 500 minutes played*");
+
+// add Slide number
+  d3.select("svg").append("text")
+  .attr("x", (width / 2) + 395)
+  .attr("y", (margin + 30))
+  .attr("text-anchor", "right")
+  .style("font-size", "20px")
+  .text("Slide 2 of 3");
 
 // add line for annotation for Callum Wilson
   d3.select("svg").append('line')
@@ -210,14 +219,6 @@ d3.select("svg").append('line')
   form { margin-left:90px}
 </style>
 
-<p> <b> Summary: </b> Now removing players who played for the top 7 teams, outliers for these teams become even more clear. <br>
-The argument can be made that players on the fringes of this filtered view would have even better performance for stronger teams.
-<br>
-Seeing these players, we can better compare their performance with the top players from the last slide by comparing their
-<br>
-total goals contribution relative to the total goals scored by their team. We will look at this on the next slide.
-<br>
-</p>
 <form action="https://dixonliang.github.io/epl1819">
     <input type="submit" value="Previous Slide"/>
 </form>
@@ -225,7 +226,15 @@ total goals contribution relative to the total goals scored by their team. We wi
 <form action="https://dixonliang.github.io/combined1819epl">
     <input type="submit" value="Next Slide"/>
 </form>
-<p>
+
+<p> <b> Summary: </b> Now removing players who played for the top 7 teams, outliers for these teams become even more clear. <br>
+The argument can be made that players on the fringes of this filtered view would have even better performance for stronger teams.
+<br>
+Seeing these players, we can better compare their performance with the top players from the last slide by comparing their
+<br>
+total goals contribution relative to the total goals scored by their team. We will look at this on the next slide.
+<br>
+<br>
 <b> Notes: </b> Hovering over a dot representing a player view reveal his name, number of goals scored, and number of assists recorded. <br>
 Dots of the same color represent players of the same team.
 </p>

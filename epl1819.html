@@ -119,7 +119,8 @@ async function init() {
                  "Goals:  "+d.goals_overall+ "<br>" +
                  "Assists: "+d.assists_overall+ "<br>" +
                  "Goals Per 90: "+d.goals_per_90_overall+"<br>" +
-                 "Assists Per 90: "+d.assists_per_90_overall
+                 "Assists Per 90: "+d.assists_per_90_overall+"<br>" +
+                 "Minutes: "+d.minutes_played_overall
                );
       })
   .on("mouseout", function() { tooltip.style("opacity", 0); });
@@ -165,6 +166,14 @@ async function init() {
   .style("font-size", "16px")
   .text("*minimum of 500 minutes played*");
 
+  // add Slide number
+    d3.select("svg").append("text")
+    .attr("x", (width / 2) + 395)
+    .attr("y", (margin + 30))
+    .attr("text-anchor", "right")
+    .style("font-size", "20px")
+    .text("Slide 1 of 3");
+
   // add line for annotation for Eden Hazard
     d3.select("svg").append('line')
          .style("stroke", "black")
@@ -201,6 +210,11 @@ async function init() {
   form { margin-left:90px}
 </style>
 
+<form action="https://dixonliang.github.io/bh1819epl">
+    <input type="submit" value="Next Slide"/>
+</form>
+
+
 <p> <b> Summary: </b> We have players from the 2018/2019 Premier League season plotted by their goals and assists per 90 minutes. <br>
 Ideally, the most efficient players in each respective element are higher for assists and to the right for goals. Only players who <br>
 have played a minimum of 500 minutes are included. Through this process, we hope to discover which players were the most efficient <br>
@@ -216,14 +230,10 @@ which are the teams that placed for European qualification. These teams were: <b
 5. Arsenal <br>
 6. Manchester United <br>
 7. Wolverhampton Wanderers <br> <br>
-Something we might be interested in looking at the non-top 7 teams which might show us players that are under-valued simply because of the performane of their team. <br>
+Something we might be interested in looking at the non-top 7 teams which might show us players that are under-valued simply because of the performance of their team. <br>
 The next slide will show only the 13 bottom teams.
 <br>
-</p>
-<form action="https://dixonliang.github.io/bh1819epl">
-    <input type="submit" value="Next Slide"/>
-</form>
-<p>
+<br>
 <b> Notes: </b> Hovering over a dot representing a player view reveal his name, number of goals scored, and number of assists recorded. <br>
 Dots of the same color represent players of the same team.
 </p>

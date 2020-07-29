@@ -126,7 +126,8 @@ async function init() {
                  "Player: "+d.full_name+ "<br>" +
                  "Percentage of Team Goals:  "+d.percentage_goals+ "<br>" +
                  "Goals and Assists: "+d3.sum([d.assists_overall,d.goals_overall])+ "<br>" +
-                 "Goals Involved Per 90: "+d.goals_per_90_overall
+                 "Goals Involved Per 90: "+d.goals_per_90_overall+"<br>" +
+                 "Minutes: "+d.minutes_played_overall
                );
       })
   .on("mouseout", function() { tooltip.style("opacity", 0); });
@@ -172,6 +173,14 @@ async function init() {
   .style("font-size", "16px")
   .text("*minimum of 500 minutes played*");
 
+// add Slide number
+  d3.select("svg").append("text")
+  .attr("x", (width / 2) + 395)
+  .attr("y", (margin + 30))
+  .attr("text-anchor", "right")
+  .style("font-size", "20px")
+  .text("Slide 3 of 3");
+
 // add line for annotation for Eden Hazard
   d3.select("svg").append('line')
        .style("stroke", "black")
@@ -209,6 +218,10 @@ async function init() {
   form { margin-left:90px}
 </style>
 
+<form action="https://dixonliang.github.io/bh1819epl">
+    <input type="submit" value="Previous Slide"/>
+</form>
+
 <p> <b> Conclusion: </b> With the total goal contribution on the x-axis and percentage of contribution y-axis, we can also see <br>
 which players outperformed relative to their team. Some of the top players remain up there, but now see some of the players that we
 <br>  pointed out in the last slide elevated higher. With consideration of the previous charts and now this one, we can put the players in certain tiers.
@@ -231,11 +244,7 @@ In terms of the surprising findings, Alexander-Arnold as a defender playing is o
 should have been top targets (bargain ones as well) for top teams looking to boost their attacking options. Unfortunately, Glenn Murray is 36 and is at <br>
 the end of his career. Rondon moved to Dalian Yifang in China following this season.
 <br>
-</p>
-<form action="https://dixonliang.github.io/bh1819epl">
-    <input type="submit" value="Previous Slide"/>
-</form>
-<p>
+<br>
 <b> Notes: </b> Hovering over a dot representing a player view reveal his name, number of goals scored, and number of assists recorded. <br>
 Dots of the same color represent players of the same team.
 </p>
