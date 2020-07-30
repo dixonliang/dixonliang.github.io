@@ -10,6 +10,11 @@
     background: white;
     border: 0px;
 }
+
+#selectButton {
+  width: 60px; height: 30px
+}
+
 </style>
 
 <body onload='init()'>
@@ -64,17 +69,32 @@
   <text x="350" y="390" font-size="smaller">Tielemans only joined Leicester half way through the season.
     <tspan dy="15" x="350"> From this data, his attacking contributions to the team are very evident.
     </tspan>
-  </text>
+    <tspan dy="15" x="350"> When we filter to 1350+ minutes (15 games), he disappears.
+    </tspan></text>
 
 </svg>
 
 <div id="tooltip"></div>
+<p><span><label for="selectButton">Minutes Played   </label></span>
+<select id="selectButton"></select>
 
 <script>
 
 async function init() {
 
   const data = await d3.csv('https://dixonliang.github.io/EPLData.csv');
+
+  // dropdown to filter minutes played
+    var dropdown = [450,900,1350,1800,2250];
+
+    // add the options to the button
+     d3.select("#selectButton")
+       .selectAll('myOptions')
+       .data(dropdown)
+       .enter()
+       .append('option')
+       .text(function (d) { return d; }) // text showed in the menu
+       .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
   var width = 750;
   var height = 750;
@@ -162,7 +182,7 @@ async function init() {
   .attr("y", (margin + 30))
   .attr("text-anchor", "center")
   .style("font-size", "16px")
-  .text("*minimum of 500 minutes played*");
+  .text("*minimum of 450 minutes played*");
 
 // add Slide number
   d3.select("svg").append("text")
@@ -170,7 +190,7 @@ async function init() {
   .attr("y", (margin + 30))
   .attr("text-anchor", "right")
   .style("font-size", "20px")
-  .text("Slide 2 of 3");
+  .text("2 of 3");
 
 // add line for annotation for Callum Wilson
   d3.select("svg").append('line')
@@ -210,6 +230,45 @@ d3.select("svg").append('line')
      .attr("x2", 342)
      .attr("y2", 410);
 
+     // When the button is changed, run the updateChart function
+     d3.select("#selectButton").on("change", function(d) {
+         // recover the option that has been chosen
+         var selectedOption = d3.select(this).property("value");
+         d3.selectAll("circle").remove(); // clear dots
+
+// recreate dots based on new minutes chosen
+         d3.select("svg")
+           .attr("width",width + 2*margin)
+           .attr("height",height + 2*margin)
+           .append("g")
+           .attr("transform","translate("+margin+","+margin+")")
+           .selectAll("body").data(data).enter().append("circle")
+           .filter(function(d) {return d.minutes_played_overall > +selectedOption })
+           .filter(function(d) {return   d["Current Club"] == "Everton" || d["Current Club"] == "Leicester City" || d["Current Club"] == "West Ham United"
+            || d["Current Club"] == "Watford" || d["Current Club"] == "Crystal Palace"
+            || d["Current Club"] == "Newcastle United" || d["Current Club"] == "AFC Bournemouth" || d["Current Club"] == "Burnley" || d["Current Club"] == "Southampton"
+            || d["Current Club"] == "Brighton & Hove Albion" || d["Current Club"] == "Huddersfield Town" || d["Current Club"] == "Cardiff City" || d["Current Club"] == "Fulham"})
+           .attr("cx",function(d) {return xs(d.goals_per_90_overall); })
+           .attr("cy",function(d) {return ys(d.assists_per_90_overall); })
+           .attr("r",function(d) {return 4; })
+           .attr("fill", d=>color(d["Current Club"]) )
+           .on("mouseover", function(d) {
+                   tooltip.style("opacity", 1)
+                          .style("left",(d3.event.pageX)+"px")
+                          .style("top",(d3.event.pageY)+"px")
+                          .html("Team: "+d["Current Club"]+ "<br>" +
+                          "Player: "+d.full_name+ "<br>" +
+                          "Goals:  "+d.goals_overall+ "<br>" +
+                          "Assists: "+d.assists_overall+ "<br>" +
+                          "Goals Per 90: "+d.goals_per_90_overall+"<br>" +
+                          "Assists Per 90: "+d.assists_per_90_overall+"<br>" +
+                          "Minutes: "+d.minutes_played_overall
+                        );
+               })
+           .on("mouseout", function() { tooltip.style("opacity", 0); });
+
+     })
+
 }
 
 </script>
@@ -237,6 +296,19 @@ total goals contribution relative to the total goals scored by their team. We wi
 <br>
 <b> Notes: </b> Hovering over a dot representing a player view reveal his name, number of goals scored, and number of assists recorded. <br>
 Dots of the same color represent players of the same team.
+We can filter using the dropdown just below the chart for different minutes played cut off. This can help differentiate between players <br>
+that were starts, role players, or bench players.
+<br>
+<br>
+450 minutes: 5 games
+<br>
+900 minutes: 10 games
+<br>
+1350 minutes: 15 games
+<br>
+1800 minutes: 20 games
+<br>
+2250 minutes: 25 games
 </p>
 
 </body>
